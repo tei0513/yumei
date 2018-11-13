@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yumei.sys.dao.SysUserDao">
+	<resultMap id="sysUserMapper" type="com.yumei.sys.entity.SysUser">
+	    <id column="USER_ID" javaType="int" property="userId" />
+	    <result column="LOGIN_NAME" javaType="string" property="loginName" />
+	    <result column="NICK_NAME"  javaType="string" property="nickName" />
+	    <result column="PASSWORD"   javaType="string" property="password" />
+	    <result column="PHONE"      javaType="string" property="phone"/>
+	    <result column="EMAIL"      javaType="string" property="email"/>
+	    <result column="TOKEN"      javaType="string" property="token"/>
+	    <result column="STATUS"     javaType="int"    property="status"/>
+	</resultMap>
+	
+	<!-- 根据用户名称查询用户 -->	
+	<select id="getUserByName" parameterType="map" resultMap="sysUserMapper">
+		SELECT USER_ID,
+			   LOGIN_NAME,
+			   NICK_NAME,
+			   PASSWORD,
+			   PHONE,EMAIL,
+			   TOKEN,
+			   STATUS
+		FROM SYS_USER
+		WHERE LOGIN_NAME = #{loginName}
+	</select>
+
+</mapper>
