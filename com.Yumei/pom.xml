@@ -24,5 +24,44 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-starter-web</artifactId>
 			</dependency>
+					
+			<!-- springboot test依赖 -->
+			<dependency>
+	            <groupId>org.springframework.boot</groupId>
+	            <artifactId>spring-boot-starter-test</artifactId>
+	        </dependency>
+	        
+	        <!-- springboot aop依赖 -->
+	        <dependency>
+	            <groupId>org.springframework.boot</groupId>
+	            <artifactId>spring-boot-starter-aop</artifactId>
+	        </dependency>
+	        
+	        <!-- Spring Boot Mybatis 依赖 -->
+			<dependency>
+			    <groupId>org.mybatis.spring.boot</groupId>
+			    <artifactId>mybatis-spring-boot-starter</artifactId>
+			    <version>1.3.2</version>
+			</dependency>
+			
+			<!-- druid连接池 依赖-->
+			<dependency>
+			    <groupId>com.alibaba</groupId>
+			    <artifactId>druid</artifactId>
+			    <version>1.1.10</version>
+			</dependency>
+			
+			<!-- mysql驱动 依赖-->
+			<dependency>
+			    <groupId>mysql</groupId>
+			    <artifactId>mysql-connector-java</artifactId>
+			</dependency>
+			
+			<!-- myBatis 分页插件依赖 -->
+			<dependency>
+			    <groupId>com.github.pagehelper</groupId>
+			    <artifactId>pagehelper</artifactId>
+			    <version>5.1.2</version>
+			</dependency>
 	</dependencies>
 </project>

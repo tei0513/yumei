@@ -1,0 +1,40 @@
+server:
+  servlet:
+    # 设置项目名称
+    context-path: /Yumei
+
+spring:
+   ################################################
+   # 数据库基本信息设置
+   ################################################
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    url: jdbc:mysql://127.0.0.1:3306/yumei?useUnicode=true&characterEncoding=utf8&serverTimezone=GMT%2B8&useSSL=false
+    username: root
+    password: root
+    driverClassName: com.mysql.jdbc.Driver
+    ################################################
+    # 链接池设置
+    ################################################
+    # 初始化连接池
+    initialSize: 5
+    # 最小连接池
+    minIdle: 5
+    # 最大连接池
+    maxActive: 20
+    # 链接等待超时时间
+    maxWait: 60000
+    # 连接池最小生存时间
+    minEvictableIdleTimeMillis: 300000
+    # 链接使用超过时间限制是否回收
+    removeAbandoned: true
+
+#mybatis配置
+mybatis:
+  mapperLocations: classpath:mapper/**/*.xml
+  # pagehelper分页插件
+  pagehelper:
+    helperDialect: mysql
+    reasonable: true
+    supportMethodsArguments: true
+    params: count=countSql
