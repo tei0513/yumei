@@ -11,8 +11,11 @@ public class SysRole {
 	private Integer roleId;
 	/** 角色名称 */
 	private String roleName;
+	/** 角色CODE */
+	private String roleCode;
 	/** 状态 */
 	private Integer status;
+	
 	/**
 	 * 获取 角色ID
 	 *
@@ -61,6 +64,20 @@ public class SysRole {
 	public void setStatus(Integer status) {
 		this.status = status;
 	}
-
-	
+	/**
+	 * 获取 角色CODE
+	 *
+	 * @return 角色CODE
+	 */
+	public String getRoleCode() {
+		return roleCode;
+	}
+	/**
+	 * 设置 角色CODE
+	 *
+	 * @param roleCode 角色CODE
+	 */
+	public void setRoleCode(String roleCode) {
+		this.roleCode = roleCode;
+	}
 }

@@ -15,6 +15,8 @@ public class SysResource {
 	private String resourceName;
 	/** 资源路径 */
 	private String url;
+	/** 资源CODE */
+	private String resourceCode;
 	/**
 	 * 获取 资源ID
 	 *
@@ -78,5 +80,21 @@ public class SysResource {
 	 */
 	public void setUrl(String url) {
 		this.url = url;
+	}
+	/**
+	 * 获取 资源CODE
+	 *
+	 * @return 资源CODE
+	 */
+	public String getResourceCode() {
+		return resourceCode;
+	}
+	/**
+	 * 设置 资源CODE
+	 *
+	 * @param resourceCode 资源CODE
+	 */
+	public void setResourceCode(String resourceCode) {
+		this.resourceCode = resourceCode;
 	}
 }
