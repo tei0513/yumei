@@ -22,6 +22,8 @@ import com.yumei.sys.entity.SysUser;
 @MapperScan("com.yumei.*.dao")
 @SpringBootTest
 public class SysUserDaoTest {
+	/** 测试用用户ID */
+	private static final int TEST_ID = 9;
 	
 	@Autowired
 	SysUserDao sysUserDao;
@@ -36,5 +38,43 @@ public class SysUserDaoTest {
 		assertNotNull(user);
 		// 断言用户昵称是否正确
 		assertEquals("test", user.getNickName());
+	}
+	
+	
+	/**
+	 * 测试保存用户
+	 */
+	@Test
+	public void saveUser() {
+		SysUser user = new SysUser();
+		user.setLoginName("Asahi");
+		user.setNickName("Asahi");
+		user.setPassword("123456");
+		user.setPhone("15001715231");
+		user.setStatus(1);
+		user.setEmail("123@123.com");
+		user.setCreateUserName("test");
+		user.setUpdateUserName("test");
+		int result = sysUserDao.saveUser(user);
+		assertEquals(1, result);
+	}
+	
+	/**
+	 * 测试修改用户
+	 */
+	@Test
+	public void updateUser() {
+		SysUser user = new SysUser();
+		user.setLoginName("Asahi");
+		user.setUserId(TEST_ID);
+		user.setNickName("Asahi");
+		user.setPassword("88888888");
+		user.setPhone("15001715231");
+		user.setStatus(1);
+		user.setEmail("123@123.com");
+		user.setCreateUserName("test");
+		user.setUpdateUserName("test");
+		int result = sysUserDao.updateUserById(user);
+		assertEquals(1, result);
 	}
 }
