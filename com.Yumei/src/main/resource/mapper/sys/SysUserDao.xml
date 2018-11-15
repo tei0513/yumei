@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.yumei.sys.dao.SysUserDao">
-	<resultMap id="sysUserMapper" type="com.yumei.sys.entity.SysUser">
+	<resultMap id="sysUserMapper" type="com.yumei.sys.entity.SysUser" extends="base.baseEntity">
 	    <id column="USER_ID" javaType="int" property="userId" />
 	    <result column="LOGIN_NAME" javaType="string" property="loginName" />
 	    <result column="NICK_NAME"  javaType="string" property="nickName" />
@@ -24,5 +24,45 @@
 		FROM SYS_USER
 		WHERE LOGIN_NAME = #{loginName}
 	</select>
-
+	
+	<insert id="saveUser" parameterType="com.yumei.sys.entity.SysUser">
+		INSERT INTO SYS_USER(
+			LOGIN_NAME,
+			NICK_NAME,
+			`PASSWORD`,
+			PHONE,
+			EMAIL,
+			TOKEN,
+			`STATUS`,
+			CREATE_USER,
+			CREATE_DATE,
+			UPDATE_USER,
+			UPDATE_DATE
+		)VALUES(#{loginName},
+				#{nickName},
+				#{password},
+				#{phone},
+				#{email},
+				#{token},
+				#{status},
+				#{createUserName},
+				#{createDate},
+				#{updateUserName},
+				#{updateDate}
+		)
+	</insert>
+	
+	<update id="updateUserById" parameterType="com.yumei.sys.entity.SysUser">
+		UPDATE SYS_USER SET
+		LOGIN_NAME = #{loginName},
+		NICK_NAME = #{nickName},
+		PASSWORD = #{password},
+		PHONE = #{phone},
+		EMAIL = #{email},
+		TOKEN = #{token},
+		STATUS = #{status},
+		UPDATE_USER = #{updateUserName},
+		UPDATE_DATE = #{updateDate}
+		WHERE USER_ID = #{userId}
+	</update>
 </mapper>

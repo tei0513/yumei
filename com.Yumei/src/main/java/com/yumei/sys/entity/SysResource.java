@@ -1,12 +1,17 @@
 package com.yumei.sys.entity;
 
+
+import com.yumei.common.entity.BaseEntity;
+
 /**
  * 资源Entity。
  * 
  * @author Tei
  * @Date 2018年11月13日
  */
-public class SysResource {
+public class SysResource extends BaseEntity {
+
+	private static final long serialVersionUID = -4360828751712361495L;
 	/** 资源ID */
 	private Integer resourceId;
 	/** 资源级别 */
@@ -15,6 +20,8 @@ public class SysResource {
 	private String resourceName;
 	/** 资源路径 */
 	private String url;
+	/** 资源状态 */
+	private Integer status;
 	/** 资源CODE */
 	private String resourceCode;
 	/**
@@ -80,6 +87,22 @@ public class SysResource {
 	 */
 	public void setUrl(String url) {
 		this.url = url;
+	}
+	/**
+	 * 获取 资源状态
+	 *
+	 * @return 资源状态
+	 */
+	public Integer getStatus() {
+		return status;
+	}
+	/**
+	 * 设置 资源状态
+	 *
+	 * @param status 资源状态
+	 */
+	public void setStatus(Integer status) {
+		this.status = status;
 	}
 	/**
 	 * 获取 资源CODE

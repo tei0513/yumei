@@ -1,12 +1,16 @@
 package com.yumei.sys.entity;
 
+import com.yumei.common.entity.BaseEntity;
+
 /**
  * 登录角色Entity。
  * 
  * @author Tei
  * @Date 2018年11月13日
  */
-public class SysRole {
+public class SysRole extends BaseEntity {
+
+	private static final long serialVersionUID = 7161920411211124318L;
 	/** 角色ID */
 	private Integer roleId;
 	/** 角色名称 */

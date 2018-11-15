@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yumei.sys.dao.SysResourceDao">
+	<resultMap id="sysResourceMapper" type="com.yumei.sys.entity.SysResource" extends="base.baseEntity">
+	    <id column="RESOURCE_ID" javaType="int" property="resourceId" />
+	    <result column="LEVEL" javaType="int" property="level" />
+	    <result column="RESOURCE_NAME"  javaType="string" property="resourceName" />
+	    <result column="URL"   javaType="string" property="url" />
+	    <result column="STATUS"   javaType="int" property="status" />
+	    <result column="RESOURCE_CODE"   javaType="string" property="resourceCode" />
+	</resultMap>
+	
+	<!-- 根据用户ID查询用户 -->	
+	<select id="getResourceByUserId" parameterType="map" resultMap="sysResourceMapper">
+		SELECT DISTINCT RE.RESOURCE_ID,
+			   RE.LEVEL,
+			   RE.RESOURCE_NAME,
+			   RE.URL,
+			   RE.STATUS,
+			   RE.RESOURCE_CODE
+		<!-- 资源表 -->
+		FROM SYS_RESOURCE RE 
+		<!-- 角色资源中间表 -->
+		RIGHT JOIN SYS_ROLE_RESOURCE RR
+		ON RE.RESOURCE_ID = RR.RESOURCE_ID
+		<!-- 角色表 -->
+		LEFT JOIN SYS_ROLE R
+		ON R.ROLE_ID = RR.ROLE_ID
+		<!-- 用户角色中间表 -->
+		LEFT JOIN SYS_USER_ROLE UR
+		ON UR.ROLE_ID = R.ROLE_ID
+		<!-- 用户表 -->
+		LEFT JOIN SYS_USER U
+		ON UR.USER_ID = U.USER_ID
+		WHERE RE.`STATUS` = 1
+		AND U.USER_ID = #{userId}
+	</select>
+
+</mapper>

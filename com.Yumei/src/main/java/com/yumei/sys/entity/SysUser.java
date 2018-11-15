@@ -1,12 +1,16 @@
 package com.yumei.sys.entity;
 
+import com.yumei.common.entity.BaseEntity;
+
 /**
  * 登录用户Entity。
  * 
  * @author Tei
  * @Date 2018年11月13日
  */
-public class SysUser {
+public class SysUser extends BaseEntity {
+
+	private static final long serialVersionUID = 58191400644575517L;
 	/** 用户ID */
 	private Integer userId;
 	/** 登录名 */
