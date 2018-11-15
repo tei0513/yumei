@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="base">
+	<resultMap id="baseEntity" type="com.yumei.common.entity.BaseEntity">
+	    <result column="CREATE_USER" javaType="string" property="createUserName" />
+	    <result column="CREATE_DATE"  javaType="date" property="createDate" />
+	    <result column="UPDATE_USER"   javaType="string" property="updateUserName" />
+	    <result column="UPDATE_DATE"   javaType="date" property="updateDate" />
+	</resultMap>
+
+</mapper>
