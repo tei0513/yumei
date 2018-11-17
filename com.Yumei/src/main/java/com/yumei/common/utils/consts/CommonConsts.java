@@ -24,4 +24,10 @@ public final class CommonConsts {
 	 * 值是{@value}
 	 */
 	public static final String DEFAULT_DATE_FORMAT = "yyyy-MM-dd";
+	
+	/**
+	 * application域scope<br>
+	 * 值是{@value}
+	 */
+	public static final String APP_SCOPE = "application";
 }
