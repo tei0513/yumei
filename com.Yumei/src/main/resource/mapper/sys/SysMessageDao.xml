@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yumei.sys.dao.SysMessageDao">
+	<resultMap id="sysMessageMapper" type="com.yumei.sys.entity.SysMessage">
+	    <result column="RESULT_CODE" javaType="string" property="resultCode"/>
+	    <result column="MESSAGE"     javaType="string" property="message"/>
+	</resultMap>
+	
+	<select id="findAll" resultMap="sysMessageMapper">
+		SELECT RESULT_CODE,
+			   MESSAGE
+		FROM SYS_MESSAGE
+	</select>
+</mapper>
