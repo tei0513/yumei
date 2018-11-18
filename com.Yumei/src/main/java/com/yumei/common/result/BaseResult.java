@@ -1,5 +1,7 @@
 package com.yumei.common.result;
 
+import com.yumei.common.validation.Validation;
+
 /**
  * 通用接口返回类型。
  * 
@@ -14,9 +16,11 @@ public class BaseResult {
 	/** 请求返回参数 */
 	private Object date;
 	
-	/** 异常信息 */
-	private String errorMsg;
-
+	/** 状态码信息 */
+	private String msg;
+    
+	/** 验证信息 */
+	private Validation validation;
 	/**
 	 * 获取 请求状态码
 	 *
@@ -54,22 +58,41 @@ public class BaseResult {
 	}
 
 	/**
-	 * 获取 异常信息
+	 * 获取 状态码信息
 	 *
-	 * @return 异常信息
+	 * @return 状态码信息
 	 */
-	public String getErrorMsg() {
-		return errorMsg;
+	public String getMsg() {
+		return msg;
 	}
 
 	/**
-	 * 设置 异常信息
+	 * 设置 状态码信息
 	 *
-	 * @param errorMsg 异常信息
+	 * @param msg 状态码信息
 	 */
-	public void setErrorMsg(String errorMsg) {
-		this.errorMsg = errorMsg;
+	public void setMsg(String msg) {
+		this.msg = msg;
 	}
 
+	/**
+	 * 获取 验证信息
+	 *
+	 * @return 验证信息
+	 */
+	public Validation getValidation() {
+		return validation;
+	}
+
+	/**
+	 * 设置 验证信息
+	 *
+	 * @param validation 验证信息
+	 */
+	public void setValidation(Validation validation) {
+		this.validation = validation;
+	}
+	
+	
 	
 }
