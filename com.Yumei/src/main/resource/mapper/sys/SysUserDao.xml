@@ -65,4 +65,14 @@
 		UPDATE_DATE = #{updateDate}
 		WHERE USER_ID = #{userId}
 	</update>
+	
+	<select id="checkLoginNameConflict" resultType="int">
+		SELECT count(1) FROM SYS_USER
+		WHERE LOGIN_NAME = #{loginName}
+	</select>
+	
+	<select id="checkPhoneConflict" resultType="int">
+		SELECT count(1) FROM SYS_USER
+		WHERE PHONE = #{phone}
+	</select>
 </mapper>

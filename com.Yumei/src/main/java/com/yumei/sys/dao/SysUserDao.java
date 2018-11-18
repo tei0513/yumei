@@ -34,4 +34,20 @@ public interface SysUserDao {
 	 * @return 根据登陆用户名返回用户信息
 	 */
 	SysUser getUserByName(@Param("loginName") String loginName);
+	
+	/**
+	 * 检查用户名是否已存在
+	 * 
+	 * @param loginName 登陆用户名
+	 * @return 存在个数
+	 */
+	int checkLoginNameConflict(@Param("loginName")String loginName);
+	
+	/**
+	 * 验证手机号是否已被绑定
+	 * 
+	 * @param phone 手机号
+	 * @return 存在个数
+	 */
+	int checkPhoneConflict(@Param("phone")String phone);
 }
