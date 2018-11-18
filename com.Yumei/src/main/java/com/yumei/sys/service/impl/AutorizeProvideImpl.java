@@ -37,6 +37,8 @@ public class AutorizeProvideImpl implements AuthorizeProvide {
 	@Override
 	public void setAuthorize(SysUser user) {
 		UserDetails userDetails = new UserDetails();
+		// 设置登陆用户名
+		userDetails.setLoginName(user.getLoginName());
 		// 获取用户角色
 		List<SysRole> roleList = roleDao.getRoleByUser(user.getUserId());
 		// 设置用户角色列表
@@ -64,8 +66,6 @@ public class AutorizeProvideImpl implements AuthorizeProvide {
 			HttpSession session = request.getSession();
 			// 将信息保存到session中
 			session.setAttribute("user_details", userDetails);
-			
-			//TODO redis共享缓存
 		}
 	}
 }

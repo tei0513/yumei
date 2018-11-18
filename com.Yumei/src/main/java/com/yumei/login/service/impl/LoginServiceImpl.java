@@ -7,10 +7,12 @@ import com.yumei.common.result.BaseResult;
 import com.yumei.common.utils.MessageUtil;
 import com.yumei.common.utils.StringChecker;
 import com.yumei.common.utils.consts.MessageConsts;
+import com.yumei.common.validation.Validation;
 import com.yumei.login.dto.LoginInDto;
 import com.yumei.login.service.LoginService;
 import com.yumei.sys.dao.SysUserDao;
 import com.yumei.sys.entity.SysUser;
+import com.yumei.sys.service.AuthorizeProvide;
 
 /**
  * 登用用service实现类。
@@ -24,6 +26,9 @@ public class LoginServiceImpl implements LoginService {
 	/** 用户Dao */
 	@Autowired
 	private SysUserDao userDao;
+	/** 权限绑定Dao */
+	@Autowired
+	private AuthorizeProvide authorizeProvide;
 
 	@Override
 	public BaseResult checkUserLogin(LoginInDto inDto) {
@@ -32,93 +37,46 @@ public class LoginServiceImpl implements LoginService {
 		// 根据登陆名获取用户信息
 		SysUser user = userDao.getUserByName(inDto.getLoginName());
 
-		// 验证用户名和密码是否以填写
-		result = checkLoginNameAndPasswordNotEmpty(inDto, result);
-		if (StringChecker.isBlank(result.getErrorMsg())) {
-			return result;
-		}
-
-		// 验证用户是否存在
-		result = checkUserName(user, result);
-		if (StringChecker.isBlank(result.getErrorMsg())) {
-			return result;
-		}
-		
-		// 验证密码是否正确
-		result = checkPassword(user.getPassword(), inDto.getPassword(), result);
-		if (StringChecker.isBlank(result.getErrorMsg())) {
+		// 用户名和密码
+		Validation validation = checkLoginNameAndPasswd(user, inDto.getPassword());
+		if (!validation.isValidate()) {
+			result.setResultCode(MessageConsts.ME001V);
+			result.setMsg(MessageUtil.getMessageByCode(MessageConsts.ME001V));
 			return result;
 		}
 		
 		// 此处为止验证以通过
 		result.setResultCode(MessageConsts.MS0000);
+		// 绑定用户角色
+		authorizeProvide.setAuthorize(user);
 		
 		return result;
 	}
 
 	/**
-	 * 验证用户名和密码是否以填写
-	 * 
-	 * @param inDto  登陆用inDto
-	 * @param result 结果信息
-	 * @return 结果信息
-	 */
-	private BaseResult checkLoginNameAndPasswordNotEmpty(LoginInDto inDto, BaseResult result) {
-		// 检查用户名是否填写
-		if (StringChecker.isBlank(inDto.getLoginName())) {
-			// 设置请求状态码
-			result.setResultCode(MessageConsts.ME000U);
-			// 设置异常信息
-			result.setErrorMsg(MessageUtil.getMessageByCode(MessageConsts.ME000U));
-			return result;
-		}
-
-		// 检查密码是否填写
-		if (StringChecker.isBlank(inDto.getPassword())) {
-			// 设置请求状态码
-			result.setResultCode(MessageConsts.ME000P);
-			// 设置异常信息
-			result.setErrorMsg(MessageUtil.getMessageByCode(MessageConsts.ME000P));
-			return result;
-		}
-
-		return result;
-	}
-
-	/**
-	 * 验证用户名是否存在
+	 * 验证用户名和密码是否正确
 	 * 
 	 * @param user   登录用户
-	 * @param result 结果信息
+	 * @param password 密码
 	 * @return 结果信息
 	 */
-	private BaseResult checkUserName(SysUser user, BaseResult result) {
+	private Validation checkLoginNameAndPasswd(SysUser user, String password) {
+		Validation validation = new Validation();
+		// 登陆用户名不存在
 		if (null == user) {
-			// 设置请求状态码
-			result.setResultCode(MessageConsts.ME001U);
-			// 设置异常信息
-			result.setErrorMsg(MessageUtil.getMessageByCode(MessageConsts.ME001U));
+			validation.addErrInfo(MessageConsts.ME001U, MessageUtil.getMessageByCode(MessageConsts.ME001U));
+			validation.setValidate(false);
+			return validation;
 		}
-		return result;
-	}
-
-	/**
-	 * 验证密码是否正确
-	 * 
-	 * @param nagPassword 原始密码
-	 * @param password    输入密码
-	 * @param result      结果信息
-	 * @return 结果信息
-	 */
-	private BaseResult checkPassword(String nagPassword, String password, BaseResult result) {
-		// 验证密码是否正确
-		if (!StringChecker.checkIsEquals(nagPassword, password)) {
-			// 设置请求状态码
-			result.setResultCode(MessageConsts.ME001P);
-			// 设置异常信息
-			result.setErrorMsg(MessageUtil.getMessageByCode(MessageConsts.ME001P));
+		// 数据库中保存的密码
+		String orgPass = user.getPassword();
+		// 密码错误
+		if (!StringChecker.checkIsEquals(orgPass, password)) {
+			validation.addErrInfo(MessageConsts.ME001P, MessageUtil.getMessageByCode(MessageConsts.ME001P));
+			validation.setValidate(false);
+			return validation;
 		}
-
-		return result;
+		
+		return validation;
 	}
 }

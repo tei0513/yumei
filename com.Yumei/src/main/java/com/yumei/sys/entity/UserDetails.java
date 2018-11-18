@@ -24,7 +24,7 @@ public class UserDetails implements Serializable {
 	 *
 	 * @return 登陆用户名
 	 */
-	public String getLoginName() {
+	public String loginName() {
 		return loginName;
 	}
 	/**
@@ -58,6 +58,14 @@ public class UserDetails implements Serializable {
 	 */
 	public List<SysResource> getResources() {
 		return resources;
+	}
+	/**
+	 * 获取 登陆用户名
+	 *
+	 * @return 登陆用户名
+	 */
+	public String getLoginName() {
+		return loginName;
 	}
 	/**
 	 * 设置 可访问资源列表
