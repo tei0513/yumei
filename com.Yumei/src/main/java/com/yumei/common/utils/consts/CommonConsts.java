@@ -30,4 +30,10 @@ public final class CommonConsts {
 	 * 值是{@value}
 	 */
 	public static final String APP_SCOPE = "application";
+	
+	/**
+	 * 激活状态<br>
+	 * 值是{@value}
+	 */
+	public static final int ACTIVE = 1;
 }

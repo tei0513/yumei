@@ -18,6 +18,12 @@ public final class NumberConsts {
 	 * 数字常数
 	 * 值为{@value}
 	 */
+	public static final int NUM_0 = 0;
+	
+	/**
+	 * 数字常数
+	 * 值为{@value}
+	 */
 	public static final int NUM_1 = 1;
 	/**
 	 * 数字常数
