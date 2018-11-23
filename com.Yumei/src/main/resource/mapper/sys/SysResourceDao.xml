@@ -8,6 +8,7 @@
 	    <result column="URL"   javaType="string" property="url" />
 	    <result column="STATUS"   javaType="int" property="status" />
 	    <result column="RESOURCE_CODE"   javaType="string" property="resourceCode" />
+	    <result column="RESOURCE_TYPE" javaType="string" property="resourceType"/>
 	</resultMap>
 	
 	<!-- 根据用户ID查询用户 -->	
@@ -17,23 +18,18 @@
 			   RE.RESOURCE_NAME,
 			   RE.URL,
 			   RE.STATUS,
-			   RE.RESOURCE_CODE
+			   RE.RESOURCE_CODE,
+			   RE.RESOURCE_TYPE
 		<!-- 资源表 -->
 		FROM SYS_RESOURCE RE 
 		<!-- 角色资源中间表 -->
 		RIGHT JOIN SYS_ROLE_RESOURCE RR
-		ON RE.RESOURCE_ID = RR.RESOURCE_ID
-		<!-- 角色表 -->
-		LEFT JOIN SYS_ROLE R
-		ON R.ROLE_ID = RR.ROLE_ID
+		ON RE.RESOURCE_CODE = RR.RESOURCE_CODE
 		<!-- 用户角色中间表 -->
-		LEFT JOIN SYS_USER_ROLE UR
-		ON UR.ROLE_ID = R.ROLE_ID
-		<!-- 用户表 -->
-		LEFT JOIN SYS_USER U
-		ON UR.USER_ID = U.USER_ID
+		RIGHT JOIN SYS_USER_ROLE UR
+		ON UR.ROLE_CODE = RR.ROLE_CODE
 		WHERE RE.`STATUS` = 1
-		AND U.USER_ID = #{userId}
+		AND UR.USER_ID = #{userId}
 	</select>
 
 </mapper>

@@ -25,6 +25,7 @@
 		WHERE LOGIN_NAME = #{loginName}
 	</select>
 	
+	<!-- 新建用户 -->
 	<insert id="saveUser" parameterType="com.yumei.sys.entity.SysUser">
 		INSERT INTO SYS_USER(
 			LOGIN_NAME,
@@ -52,6 +53,7 @@
 		)
 	</insert>
 	
+	<!-- 根据用户ID获取用户信息 -->
 	<update id="updateUserById" parameterType="com.yumei.sys.entity.SysUser">
 		UPDATE SYS_USER SET
 		LOGIN_NAME = #{loginName},
@@ -66,13 +68,21 @@
 		WHERE USER_ID = #{userId}
 	</update>
 	
+	<!-- 检查是否有冲突的登录名 -->
 	<select id="checkLoginNameConflict" resultType="int">
 		SELECT count(1) FROM SYS_USER
 		WHERE LOGIN_NAME = #{loginName}
 	</select>
 	
+	<!-- 检查手否用冲突的手机号 -->
 	<select id="checkPhoneConflict" resultType="int">
 		SELECT count(1) FROM SYS_USER
 		WHERE PHONE = #{phone}
 	</select>
+	
+	<!-- 登陆成功后刷新token -->
+	<update id="referToken">
+		UPDATE SYS_USER SET TOKEN = #{token} 
+		WHERE LOGIN_NAME = #{loginName}
+	</update>
 </mapper>

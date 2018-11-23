@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yumei.sys.dao.SysDictionaryDao">
+	<resultMap id="sysDictionaryMap" type="com.yumei.sys.entity.SysDictionary" extends="base.baseEntity">
+		<id column="id" javaType="int" property="ID" />
+	    <result column="code" javaType="string" property="DICTIONARY_CODE" />
+	    <result column="value"  javaType="string" property="DICTIONARY_VALUE" />
+	    <result column="status"   javaType="string" property="STATUS" />
+	</resultMap>
+	
+	<!-- 获取所有有效字典 -->
+	<select id="findAvailability" resultMap="sysDictionaryMap">
+		SELECT ID,
+			   DICTIONARY_CODE,
+			   DICTIONARY_VALUE,
+			   STATUS,
+			   CREATE_USER,
+			   CREATE_DATE,
+			   UPDATE_USER,
+			   UPDATE_DATE
+		FROM SYS_DICTIONARY
+		WHERE `STATUS` = 1 
+	</select>
+	
+	<!-- 获取所有字典 -->
+	<select id="findAll" resultMap="sysDictionaryMap">
+		SELECT ID,
+			   DICTIONARY_CODE,
+			   DICTIONARY_VALUE,
+			   STATUS,
+			   CREATE_USER,
+			   CREATE_DATE,
+			   UPDATE_USER,
+			   UPDATE_DATE
+		FROM SYS_DICTIONARY
+	</select>
+	
+	<!-- 保存数据字典 -->
+	<insert id="saveDictionary" parameterType="com.yumei.sys.entity.SysDictionary">
+		INSERT INTO SYS_DICTIONARY(DICTIONARY_CODE,
+								   DICTIONARY_VALUE,
+								   STATUS,
+								   CREATE_USER,
+								   CREATE_DATE,
+								   UPDATE_USER,
+								   UPDATE_DATE)
+		VALUES(
+			#{code},
+			#{value},
+			#{status},
+			#{createUserName},
+			#{createDate},
+			#{updateUserName},
+			#{updateDate}
+		)
+	</insert>
+</mapper>
