@@ -32,8 +32,38 @@ public final class CommonConsts {
 	public static final String APP_SCOPE = "application";
 	
 	/**
+	 * 系统默认记录人<br>
+	 * 值是{@value}
+	 */
+	public static final String SYS = "SYS";
+	
+	/**
 	 * 激活状态<br>
 	 * 值是{@value}
 	 */
 	public static final int ACTIVE = 1;
+	
+	/**
+	 * 单例bean<br>
+	 * 值是{@value}
+	 */
+	public static final String SINGLE_SCOPE = "single";
+	
+	/**
+	 * 权限不足CODE<br>
+	 * 值是{@value}
+	 */
+	public static final int PERMISSION_ERROR = 403;
+	
+	/** 
+	 * cookie中存放token的key 
+	 * 值是{@value}
+	 */
+	public static final String ACCESS_TOKEN_KEY = "Access_Token";
+	
+	/**
+	 * Session生命周期<br>
+	 * 值是{@value}
+	 */
+	public static final int SESSION_TIME = 60 * 60;
 }

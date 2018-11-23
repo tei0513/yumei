@@ -75,4 +75,5 @@ public class UserDetails implements Serializable {
 	public void setResources(List<SysResource> resources) {
 		this.resources = resources;
 	}
+	
 }

@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.yumei.common.result.BaseResult;
 import com.yumei.common.utils.MessageUtil;
+import com.yumei.common.utils.PasswordUtil;
 import com.yumei.common.utils.StringChecker;
 import com.yumei.common.utils.consts.MessageConsts;
 import com.yumei.common.validation.Validation;
@@ -13,6 +14,7 @@ import com.yumei.login.dto.LoginInDto;
 import com.yumei.login.model.LoginModel;
 import com.yumei.login.service.LoginService;
 import com.yumei.login.util.consts.LoginConsts;
+import com.yumei.login.vo.LoginVO;
 
 /**
  * 登陆页面Controller。
@@ -34,6 +36,10 @@ public class LoginController {
 	@RequestMapping(LoginConsts.INIT)
 	public BaseResult init() {
 		BaseResult result = new BaseResult();
+		// 设置登陆随机码
+		LoginVO loginVo = new LoginVO();
+		// 设置随机码
+		result.setDate(loginVo);
 		// 设置请求状态码
 		result.setResultCode("00");
 		return result;
@@ -86,6 +92,13 @@ public class LoginController {
 			validation.setValidate(false);
 			return validation;
 		}
+		
+		// 检查登陆码是否正确
+		if (!StringChecker.checkIsEquals(model.getLoginCodeIn(), model.getLoginCodeOut())) {
+			validation.addErrInfo(MessageConsts.ME002L, MessageUtil.getMessageByCode(MessageConsts.ME002L));
+			validation.setValidate(false);
+			return validation;
+		}
 		return validation;
 	}
 
@@ -100,7 +113,7 @@ public class LoginController {
 		// 设置用户名
 		inDto.setLoginName(model.getLoginName());
 		// 设置密码
-		inDto.setPassword(model.getPassword());
+		inDto.setPassword(PasswordUtil.encryptSha256(model.getPassword()));
 		
 		return inDto;
 	}

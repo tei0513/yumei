@@ -11,7 +11,9 @@ import org.springframework.stereotype.Component;
 
 import com.yumei.common.utils.CollectionUtil;
 import com.yumei.common.utils.consts.CommonConsts;
+import com.yumei.sys.dao.SysDictionaryDao;
 import com.yumei.sys.dao.SysMessageDao;
+import com.yumei.sys.entity.SysDictionary;
 import com.yumei.sys.entity.SysMessage;
 
 /**
@@ -26,12 +28,29 @@ public class ApplicationScope {
 	
 	@Autowired
 	private SysMessageDao messageDao;
+	@Autowired
+	private SysDictionaryDao dictionaryDao;
 	
+	/**
+	 * 初始化application
+	 */
+	@PostConstruct
+	public void init() {
+		// 初始化状态码信息
+		initMessage();
+		// 初始化数据字典
+		initDictionary();
+
+	}
+
 	/**
 	 * 状态码信息池
 	 */
 	private HashMap<String, String> resultMsg;
-
+	/**
+	 * 数据字典集合
+	 */
+	private HashMap<String, String> dictionary;
 	
 	/**
 	 * 获取状态码信息池
@@ -51,14 +70,32 @@ public class ApplicationScope {
 	public void setResultMsg(HashMap<String, String> resultMsg) {
 		this.resultMsg = resultMsg;
 	}
+	
+	
+	/**
+	 * 获取 数据字典集合
+	 *
+	 * @return 数据字典集合
+	 */
+	public HashMap<String, String> getDictionary() {
+		return dictionary;
+	}
 
 
 	/**
-	 * 初始化application
+	 * 设置 数据字典集合
+	 *
+	 * @param dictionary 数据字典集合
 	 */
-	@PostConstruct
-	public void init() {
-		// 获取所有状态码信息
+	public void setDictionary(HashMap<String, String> dictionary) {
+		this.dictionary = dictionary;
+	}
+
+
+	/**
+	 * 初始化Message
+	 */
+	private void initMessage() {
 		List<SysMessage> messages = messageDao.findAll();
 		
 		if (!CollectionUtil.checkIsEmpty(messages)) {
@@ -69,6 +106,25 @@ public class ApplicationScope {
 				resultInfo.put(message.getResultCode(), message.getMessage());
 				// 设置状态码信息池
 				this.setResultMsg(resultInfo);
+			}
+		}
+	}
+	
+	/**
+	 * 初始化数据字典
+	 */
+	private void initDictionary() {
+		List<SysDictionary> dictionaryList = dictionaryDao.findAvailability();
+		
+		if (!CollectionUtil.checkIsEmpty(dictionaryList)) {
+			// 构建用户保存数据字典的Map
+			HashMap<String, String> dictionaryInfo = new HashMap<String, String>();
+			
+			for (SysDictionary sdictionary : dictionaryList) {
+				// 保存数据字典
+				dictionaryInfo.put(sdictionary.getCode(), sdictionary.getValue());
+				// 设置数据字典集合
+				this.setDictionary(dictionaryInfo);
 			}
 		}
 	}

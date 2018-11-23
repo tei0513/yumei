@@ -43,15 +43,15 @@ public class AutorizeProvideImpl implements AuthorizeProvide {
 		List<SysRole> roleList = roleDao.getRoleByUser(user.getUserId());
 		// 设置用户角色列表
 		userDetails.setRoles(roleList);
-		
 		// 根据用户ID获取相关资源
 		List<SysResource> resourceList = resourceDao.getResourceByUserId(user.getUserId());
 		// 设置可访问资源列表
 		userDetails.setResources(resourceList);
-		
+		// 保存权限到session
 		saveToSession(userDetails);
 	}
 	
+
 	/**
 	 * 将用户信息保存到sesssion中
 	 * 
@@ -60,7 +60,7 @@ public class AutorizeProvideImpl implements AuthorizeProvide {
 	private void saveToSession(UserDetails userDetails) {
 		// 获取request
 		HttpServletRequest request = CommonUtil.getRequest();
-	
+		
 		if (null != request) {
 			// 获取session
 			HttpSession session = request.getSession();

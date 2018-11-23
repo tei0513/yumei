@@ -2,6 +2,7 @@ package com.yumei.login.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.yumei.common.result.BaseResult;
 import com.yumei.common.utils.MessageUtil;
@@ -31,6 +32,7 @@ public class LoginServiceImpl implements LoginService {
 	private AuthorizeProvide authorizeProvide;
 
 	@Override
+	@Transactional
 	public BaseResult checkUserLogin(LoginInDto inDto) {
 		// 初始化返回结果信息
 		BaseResult result = new BaseResult();
@@ -40,18 +42,25 @@ public class LoginServiceImpl implements LoginService {
 		// 用户名和密码
 		Validation validation = checkLoginNameAndPasswd(user, inDto.getPassword());
 		if (!validation.isValidate()) {
+			// 设置请求状态码
 			result.setResultCode(MessageConsts.ME001V);
+			// 设置状态码信息
 			result.setMsg(MessageUtil.getMessageByCode(MessageConsts.ME001V));
+			// 设置验证信息
+			result.setValidation(validation);
 			return result;
 		}
 		
 		// 此处为止验证以通过
 		result.setResultCode(MessageConsts.MS0000);
-		// 绑定用户角色
+		
+		// 绑定用户角色和token
 		authorizeProvide.setAuthorize(user);
+		
 		
 		return result;
 	}
+	
 
 	/**
 	 * 验证用户名和密码是否正确
@@ -79,4 +88,5 @@ public class LoginServiceImpl implements LoginService {
 		
 		return validation;
 	}
+
 }

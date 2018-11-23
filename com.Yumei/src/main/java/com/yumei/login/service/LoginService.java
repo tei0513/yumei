@@ -17,4 +17,5 @@ public interface LoginService {
 	 * @return 登陆信息
 	 */
 	BaseResult checkUserLogin(LoginInDto inDto);
+	
 }

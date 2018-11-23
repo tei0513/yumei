@@ -12,7 +12,7 @@ public class LoginConsts {
 	 * 用户登录路由<br>
 	 * 值是{@value}
 	 */
-	public static final String LOGIN = "login";
+	public static final String LOGIN = "/login";
 	
 	/**
 	 * 初始化页面路由<br>

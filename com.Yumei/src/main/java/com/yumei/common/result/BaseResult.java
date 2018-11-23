@@ -21,6 +21,9 @@ public class BaseResult {
     
 	/** 验证信息 */
 	private Validation validation;
+	
+	/** 随机令牌 */
+	private String token;
 	/**
 	 * 获取 请求状态码
 	 *
@@ -92,7 +95,23 @@ public class BaseResult {
 	public void setValidation(Validation validation) {
 		this.validation = validation;
 	}
-	
-	
+
+	/**
+	 * 获取 随机令牌
+	 *
+	 * @return 随机令牌
+	 */
+	public String getToken() {
+		return token;
+	}
+
+	/**
+	 * 设置 随机令牌
+	 *
+	 * @param token 随机令牌
+	 */
+	public void setToken(String token) {
+		this.token = token;
+	}
 	
 }

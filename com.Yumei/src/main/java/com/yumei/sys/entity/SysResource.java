@@ -24,6 +24,8 @@ public class SysResource extends BaseEntity {
 	private Integer status;
 	/** 资源CODE */
 	private String resourceCode;
+	/** 资源类型 */
+	private Integer resourceType;
 	/**
 	 * 获取 资源ID
 	 *
@@ -119,5 +121,21 @@ public class SysResource extends BaseEntity {
 	 */
 	public void setResourceCode(String resourceCode) {
 		this.resourceCode = resourceCode;
+	}
+	/**
+	 * 获取 资源类型
+	 *
+	 * @return 资源类型
+	 */
+	public Integer getResourceType() {
+		return resourceType;
+	}
+	/**
+	 * 设置 资源类型
+	 *
+	 * @param resourceType 资源类型
+	 */
+	public void setResourceType(Integer resourceType) {
+		this.resourceType = resourceType;
 	}
 }

@@ -24,6 +24,7 @@ import com.yumei.sys.entity.UserDetails;
  */
 @Component
 @Aspect
+@Order(NumberConsts.NUM_5)
 public class MapperAop {
 	
 	/**
@@ -32,7 +33,6 @@ public class MapperAop {
 	 * @param point 切入点
 	 */
 	@Before("execution(* com.yumei.*.dao.*.save*(..)) || execution(* com.yumei.*.dao.*.update*(..))")
-	@Order(NumberConsts.NUM_5)
 	public void setModifyInfo(JoinPoint point) {
 		// 获取方法所有传参
 		Object[] args = point.getArgs();

@@ -50,4 +50,13 @@ public interface SysUserDao {
 	 * @return 存在个数
 	 */
 	int checkPhoneConflict(@Param("phone")String phone);
+	
+	/**
+	 * 更新用户token
+	 * 
+	 * @param loginName 登陆用户名
+	 * @param token token
+	 * @return 操作个数
+	 */
+	int referToken(@Param("loginName")String loginName, @Param("token")String token);
 }

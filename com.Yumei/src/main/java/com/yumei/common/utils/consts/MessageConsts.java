@@ -85,4 +85,28 @@ public class MessageConsts {
 	 * 值是{@value}
 	 */
 	public static final String ME01RP = "ME01RP";
+	
+	/**
+	 * 用户未登录错误码<br>
+	 * 值是{@value}
+	 */
+	public static final String ME001L = "ME001L";
+	
+	/**
+	 * 权限不足错误码<br>
+	 * 值是{@value}
+	 */
+	public static final String SE0403 = "SE0403";
+	
+	/**
+	 * token不一致错误码<br>
+	 * 值是{@value}
+	 */
+	public static final String SE0500 = "SE0500";
+	
+	/**
+	 * 登陆码错误码<br>
+	 * 值是{@value}
+	 */
+	public static final String ME002L = "ME002L";
 }
