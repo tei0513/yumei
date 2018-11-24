@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.yumei.common.result.BaseResult;
+import com.yumei.common.result.builder.BaseResultBuilder;
 import com.yumei.common.utils.MessageUtil;
 import com.yumei.common.utils.PasswordUtil;
 import com.yumei.common.utils.consts.CommonConsts;
@@ -26,10 +27,13 @@ public class RegisterServiceImpl implements RegisterService {
 	/** 用户DAO */
 	@Autowired
 	private SysUserDao userDao;
+	/** 返回结果构造器 */
+	@Autowired
+	private BaseResultBuilder resultBuilder;;
 	
 	@Override
 	public BaseResult register(RegisterInDto inDto) {
-		BaseResult result = new BaseResult();
+		BaseResult result = resultBuilder.build();
 		// 将inDto转成model
 		SysUser user = convertInDtoToEntity(inDto);
 		// 设置状态
@@ -37,8 +41,9 @@ public class RegisterServiceImpl implements RegisterService {
 		// 验证是否可以注册
 		Validation validation = checkCanRegister(user.getLoginName(), user.getPhone());
 		if (!validation.isValidate()) {
-			result.setMsg(MessageConsts.ME001V);
-			result.setMsg(MessageUtil.getMessageByCode(MessageConsts.ME001V));
+			// 构建验证失败返回信息
+			result = resultBuilder.buildValidationFailResult();
+			// 设置验证信息
 			result.setValidation(validation);
 			return result;
 		}
@@ -103,7 +108,6 @@ public class RegisterServiceImpl implements RegisterService {
 		user.setEmail(inDto.getEmail());
 		// 设置昵称
 		user.setNickName(inDto.getNickName());
-		
 		return user;
 	}
 }

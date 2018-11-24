@@ -18,7 +18,11 @@ public final class CommonConsts {
 	 * 值是{@value}
 	 */
 	public static final String BLANK = "";
-	
+	/**
+	 * 制表符<br>
+	 * 值是{@value}
+	 */
+	public static final String TAB = "\t";
 	/**
 	 * 默认日期转换格式<br>
 	 * 值是{@value}
@@ -66,4 +70,6 @@ public final class CommonConsts {
 	 * 值是{@value}
 	 */
 	public static final int SESSION_TIME = 60 * 60;
+	
+	
 }

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<configuration status="DEBUG">
+	<properties>
+		<!-- Log输出文件夹 -->
+        <property name="LOG_HOME">D:/logs</property>
+        <!-- controller log文件名称 -->
+        <property name="CONTROLLER_LOG_NAME">controller</property>
+        <!-- serviceLogger文件名称 -->
+        <property name="SERVICE_LOG_NAME">service</property>
+        <!-- errorLogger -->
+        <property name="ERROR_LOG_NAME">error</property>
+    </properties>
+	  
+    <appenders>
+    	<!-- CONTROLLER LOG -->
+    	<RollingRandomAccessFile name="controllerLogger" fileName="${LOG_HOME}/${CONTROLLER_LOG_NAME}.log" filePattern="${LOG_HOME}/$${date:yyyy-MM}/${CONTROLLER_LOG_NAME}-%d{yyyy-MM-dd HH-mm}-%i.log">
+            <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="1"/>
+                <SizeBasedTriggeringPolicy size="10 MB"/>
+            </Policies>
+            <DefaultRolloverStrategy max="20"/>
+        </RollingRandomAccessFile>
+    
+    	<!-- SERVICE LOG -->  
+		<RollingRandomAccessFile name="serviceLogger" fileName="${LOG_HOME}/${SERVICE_LOG_NAME}.log" filePattern="${LOG_HOME}/$${date:yyyy-MM}/${SERVICE_LOG_NAME}-%d{yyyy-MM-dd HH-mm}-%i.log">
+            <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="1"/>
+                <SizeBasedTriggeringPolicy size="10 MB"/>
+            </Policies>
+            <DefaultRolloverStrategy max="20"/>
+        </RollingRandomAccessFile>
+        
+         <!-- ERROR LOG -->  
+		<RollingRandomAccessFile name="errorLogger" fileName="${LOG_HOME}/${ERROR_LOG_NAME}.log" filePattern="${LOG_HOME}/$${date:yyyy-MM}/${ERROR_LOG_NAME}-%d{yyyy-MM-dd HH-mm}-%i.log">
+            <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="1"/>
+                <SizeBasedTriggeringPolicy size="10 MB"/>
+            </Policies>
+            <DefaultRolloverStrategy max="20"/>
+        </RollingRandomAccessFile>
+    </appenders>  
+    
+    <Loggers>
+    	<Logger name="controllerLogger" level="info" additivity="false">
+                <AppenderRef ref="controllerLogger" />
+        </Logger>
+    	<Logger name="serviceLogger" level="info" additivity="false">
+                <AppenderRef ref="serviceLogger" />
+        </Logger>
+    	<Logger name="errorLogger" level="error"  additivity="false">
+	         <appender-ref ref="errorLogger"/>
+    	</Logger>
+    </Loggers>
+</configuration>
+    

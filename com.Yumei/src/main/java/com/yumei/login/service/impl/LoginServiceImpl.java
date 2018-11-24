@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.yumei.common.result.BaseResult;
+import com.yumei.common.result.builder.BaseResultBuilder;
 import com.yumei.common.utils.MessageUtil;
 import com.yumei.common.utils.StringChecker;
 import com.yumei.common.utils.consts.MessageConsts;
@@ -30,33 +31,30 @@ public class LoginServiceImpl implements LoginService {
 	/** 权限绑定Dao */
 	@Autowired
 	private AuthorizeProvide authorizeProvide;
-
+	/** 返回结果构造器 */
+	@Autowired
+	private BaseResultBuilder resultBuilder;
+	
 	@Override
 	@Transactional
 	public BaseResult checkUserLogin(LoginInDto inDto) {
-		// 初始化返回结果信息
-		BaseResult result = new BaseResult();
+		BaseResult result;
 		// 根据登陆名获取用户信息
 		SysUser user = userDao.getUserByName(inDto.getLoginName());
 
 		// 用户名和密码
 		Validation validation = checkLoginNameAndPasswd(user, inDto.getPassword());
 		if (!validation.isValidate()) {
-			// 设置请求状态码
-			result.setResultCode(MessageConsts.ME001V);
-			// 设置状态码信息
-			result.setMsg(MessageUtil.getMessageByCode(MessageConsts.ME001V));
-			// 设置验证信息
+			result = resultBuilder.buildValidationFailResult();
 			result.setValidation(validation);
 			return result;
 		}
 		
 		// 此处为止验证以通过
-		result.setResultCode(MessageConsts.MS0000);
+		result = resultBuilder.buildSuccessResult();
 		
 		// 绑定用户角色和token
 		authorizeProvide.setAuthorize(user);
-		
 		
 		return result;
 	}

@@ -24,8 +24,6 @@ import com.yumei.common.utils.consts.RedisConsts;
 @Aspect
 @Order(NumberConsts.NUM_10)
 public class ControllerAop {
-	
-	
 	/**
 	 * 设置token属性
 	 */

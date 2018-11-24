@@ -1,9 +1,12 @@
 package com.yumei.register.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.yumei.common.controller.BaseController;
 import com.yumei.common.result.BaseResult;
 import com.yumei.common.utils.MessageUtil;
 import com.yumei.common.utils.StringChecker;
@@ -21,7 +24,7 @@ import com.yumei.register.util.consts.RegisterConsts;
  * @Date 2018年11月18日
  */
 @RestController
-public class RegisterController {
+public class RegisterController extends BaseController {
 	@Autowired
 	private RegisterService registerService;
 	
@@ -44,16 +47,13 @@ public class RegisterController {
 	 * @param model 注册用Model
 	 * @return 操作结果
 	 */
-	@RequestMapping(RegisterConsts.REGISTER)
-	public BaseResult register(RegisterModel model) {
-		BaseResult result = new BaseResult();
+	@RequestMapping(value = RegisterConsts.REGISTER, method = RequestMethod.POST)
+	public BaseResult register(@RequestBody RegisterModel model) {
+		BaseResult result;
 		// 验证填写信息正确性
 		Validation validation = checkDate(model);
 		if (!validation.isValidate()) {
-			// 设置请求状态码
-			result.setResultCode(MessageConsts.ME001V);
-			// 设置状态码信息
-			result.setMsg(MessageUtil.getMessageByCode(MessageConsts.ME001V));
+			result = resultBuilder.buildValidationFailResult();
 			// 设置验证信息
 			result.setValidation(validation);
 			return result;

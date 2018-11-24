@@ -1,10 +1,14 @@
 package com.yumei.login.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.yumei.common.controller.BaseController;
 import com.yumei.common.result.BaseResult;
+import com.yumei.common.result.builder.BaseResultBuilder;
 import com.yumei.common.utils.MessageUtil;
 import com.yumei.common.utils.PasswordUtil;
 import com.yumei.common.utils.StringChecker;
@@ -23,25 +27,26 @@ import com.yumei.login.vo.LoginVO;
  * @Date 2018年11月17日
  */
 @RestController
-public class LoginController {
+public class LoginController extends BaseController {
 	
 	@Autowired
 	private LoginService loginService;
+	
+	@Autowired
+	private BaseResultBuilder resultBuilder;
 	
 	/**
 	 * 登陆页面初始化
 	 * 
 	 * @return 登录页面相关信息
 	 */
-	@RequestMapping(LoginConsts.INIT)
+	@RequestMapping(value = LoginConsts.INIT, method = RequestMethod.POST)
 	public BaseResult init() {
-		BaseResult result = new BaseResult();
 		// 设置登陆随机码
 		LoginVO loginVo = new LoginVO();
+		BaseResult result = resultBuilder.buildSuccessResult();
 		// 设置随机码
 		result.setDate(loginVo);
-		// 设置请求状态码
-		result.setResultCode("00");
 		return result;
 	}
 	
@@ -51,14 +56,13 @@ public class LoginController {
 	 * @param model 用户登陆用Model类
 	 * @return 登陆信息
 	 */
-	@RequestMapping(LoginConsts.LOGIN)
-	public BaseResult login(LoginModel model) {
-		BaseResult result = new BaseResult();
+	@RequestMapping(value = LoginConsts.LOGIN, method = RequestMethod.POST)
+	public BaseResult login(@RequestBody LoginModel model) {
+		BaseResult result;
 		Validation validation = checkDate(model);
 		// 页面输入值不正确返回错误信息
 		if (!validation.isValidate()) {
-			result.setResultCode(MessageConsts.ME001V);
-			result.setMsg(MessageUtil.getMessageByCode(MessageConsts.ME001V));
+			result = resultBuilder.buildValidationFailResult();
 			result.setValidation(validation);
 			return result;
 		}

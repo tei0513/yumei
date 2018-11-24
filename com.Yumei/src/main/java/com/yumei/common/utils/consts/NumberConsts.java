@@ -70,6 +70,11 @@ public final class NumberConsts {
 	 * 值为{@value}
 	 */
 	public static final int NUM_10 = 10;
+	/**
+	 * 数字常数
+	 * 值为{@value}
+	 */
+	public static final int NUM_20 = 20;
 	
 	
 }
