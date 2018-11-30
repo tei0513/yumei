@@ -9,6 +9,12 @@ import com.yumei.common.utils.consts.CommonConsts;
  * @Date 2018年11月11日
  */
 public final class StringUtil {
+	
+	/**
+	 * 首字母大写修改值
+	 */
+	private static final int UPPER_NUM = 32;
+	
 	/**
 	 * 隐藏工具类构造函数
 	 */
@@ -41,5 +47,18 @@ public final class StringUtil {
 		}
 
 		return str.toLowerCase();
+	}
+	
+	
+	/**
+	 * 首字母大写
+	 * 
+	 * @param str 目标字符串
+	 * @return 首字母大写
+	 */
+	public static String topUpper(String str) {
+		char[] charArray = str.toCharArray();
+		charArray[0] -= UPPER_NUM;
+		return String.valueOf(charArray);
 	}
 }

@@ -67,6 +67,37 @@ public final class DateUtil {
 		
 		return date;
 	}
+	
+	/**
+	 * 将Date类型转换为String<br>
+	 * [备考]默认转换格式yyyy-MM-dd
+	 * 
+	 * @param date 日期格式对象
+	 * @return 转化后的String类型
+	 */
+	public static String convertToString(Date date) {
+		return convertToString(date, CommonConsts.DEFAULT_DATE_FORMAT);
+	}
+	
+	/**
+	 * 将Date类型转换为String<br>
+	 * [备考]默认转换格式yyyy-MM-dd
+	 * 
+	 * @param date 日期格式对象
+	 * @param format 转换格式
+	 * @return 转化后的String类型
+	 */
+	public static String convertToString(Date date, String format) {
+		if (null == date) {
+			return CommonConsts.BLANK;
+		}
+
+		// 定义日期转换格式
+		setDateFormat(format);
+		
+		SimpleDateFormat simpleDateFormat = threadLocal.get();
+		return simpleDateFormat.format(date);
+	}
 
 	/**
 	 * 定义日期转换格式
@@ -83,4 +114,5 @@ public final class DateUtil {
 		// 保存日期格式转换器
 		threadLocal.set(sdf);
 	}
+	
 }

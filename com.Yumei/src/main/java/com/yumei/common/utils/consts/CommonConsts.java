@@ -71,5 +71,56 @@ public final class CommonConsts {
 	 */
 	public static final int SESSION_TIME = 60 * 60;
 	
+	/**
+	 * 逗号<br>
+	 * 值是{@value}
+	 */
+	public static final String COMA = ",";
 	
+	/**
+	 * 冒号<br>
+	 * 值是{@value}
+	 */
+	public static final String COLO = ":";
+	
+	/**
+	 * null字段<br>
+	 * 值是{@value}
+	 */
+	public static final String NULL = "null";
+	/**
+	 * OBECT左标记<br>
+	 * 值是{@value}
+	 */
+	public static final String OBJECT_LEFT = "[";
+	
+	/**
+	 * OBECT右标记<br>
+	 * 值是{@value}
+	 */
+	public static final String OBJECT_RIGHT = "]";
+	
+	/**
+	 * List集合左标记<br>
+	 * 值是{@value}
+	 */
+	public static final String LIST_LEFT = "<";
+	
+	/**
+	 * List集合右标记<br>
+	 * 值是{@value}
+	 */
+	public static final String LIST_RIGHT = ">";
+	
+	/**
+	 * Map集合左标记<br>
+	 * 值是{@value}
+	 */
+	public static final String MAP_LEFT = "{";
+	
+	/**
+	 * Map集合右标记<br>
+	 * 值是{@value}
+	 */
+	public static final String MAP_RIGHT = "}";
 }

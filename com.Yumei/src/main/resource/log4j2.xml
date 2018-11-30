@@ -7,7 +7,7 @@
         <property name="CONTROLLER_LOG_NAME">controller</property>
         <!-- serviceLogger文件名称 -->
         <property name="SERVICE_LOG_NAME">service</property>
-        <!-- errorLogger -->
+        <!-- errorLogger文件名称 -->
         <property name="ERROR_LOG_NAME">error</property>
     </properties>
 	  
@@ -16,8 +16,7 @@
     	<RollingRandomAccessFile name="controllerLogger" fileName="${LOG_HOME}/${CONTROLLER_LOG_NAME}.log" filePattern="${LOG_HOME}/$${date:yyyy-MM}/${CONTROLLER_LOG_NAME}-%d{yyyy-MM-dd HH-mm}-%i.log">
             <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
             <Policies>
-                <TimeBasedTriggeringPolicy interval="1"/>
-                <SizeBasedTriggeringPolicy size="10 MB"/>
+                <SizeBasedTriggeringPolicy size="20 MB"/>
             </Policies>
             <DefaultRolloverStrategy max="20"/>
         </RollingRandomAccessFile>
@@ -26,8 +25,7 @@
 		<RollingRandomAccessFile name="serviceLogger" fileName="${LOG_HOME}/${SERVICE_LOG_NAME}.log" filePattern="${LOG_HOME}/$${date:yyyy-MM}/${SERVICE_LOG_NAME}-%d{yyyy-MM-dd HH-mm}-%i.log">
             <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
             <Policies>
-                <TimeBasedTriggeringPolicy interval="1"/>
-                <SizeBasedTriggeringPolicy size="10 MB"/>
+                <SizeBasedTriggeringPolicy size="50 MB"/>
             </Policies>
             <DefaultRolloverStrategy max="20"/>
         </RollingRandomAccessFile>
@@ -36,8 +34,7 @@
 		<RollingRandomAccessFile name="errorLogger" fileName="${LOG_HOME}/${ERROR_LOG_NAME}.log" filePattern="${LOG_HOME}/$${date:yyyy-MM}/${ERROR_LOG_NAME}-%d{yyyy-MM-dd HH-mm}-%i.log">
             <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
             <Policies>
-                <TimeBasedTriggeringPolicy interval="1"/>
-                <SizeBasedTriggeringPolicy size="10 MB"/>
+                <SizeBasedTriggeringPolicy size="50 MB"/>
             </Policies>
             <DefaultRolloverStrategy max="20"/>
         </RollingRandomAccessFile>

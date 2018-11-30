@@ -1,12 +1,16 @@
 package com.yumei.register.model;
 
+import com.yumei.common.model.BaseModel;
+
 /**
  * 注册用Model。
  * 
  * @author Tei
  * @Date 2018年11月18日
  */
-public class RegisterModel {
+public class RegisterModel extends BaseModel {
+
+	private static final long serialVersionUID = -7454646949757210230L;
 	/** 登录名 */
 	private String loginName;
 	/** 昵称 */
